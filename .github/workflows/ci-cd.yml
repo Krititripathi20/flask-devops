@@ -17,7 +17,7 @@ jobs:
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t YOUR_DOCKER_USERNAME/flask-app:latest .
+        run: docker build -t kriti156/flask-app:latest .
 
       - name: Push Docker image
-        run: docker push YOUR_DOCKER_USERNAME/flask-app:latest
+        run: docker push kriti156/flask-app:latest
