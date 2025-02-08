@@ -1,28 +1,23 @@
-name: Flask CI/CD Pipeline  # The name of our workflow
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main  # Run the workflow when code is pushed to the 'main' branch
+      - main
 
 jobs:
-  build:  # This is the name of our job (a set of steps)
-    runs-on: ubuntu-latest  # The machine where the job runs (Linux)
-
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4  # Fetches the latest code from GitHub
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'  # Installs Python 3.9
-
-      - name: Install Dependencies
+      - name: Set up Docker
         run: |
-          python -m pip install --upgrade pip  # Updates pip
-          pip install -r requirements.txt  # Installs project dependencies
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Run Tests
-        run: |
-          python -m unittest discover tests  # Runs all test files in 'tests' folder
+      - name: Build Docker image
+        run: docker build -t YOUR_DOCKER_USERNAME/flask-app:latest .
+
+      - name: Push Docker image
+        run: docker push YOUR_DOCKER_USERNAME/flask-app:latest
