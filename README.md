@@ -1,2 +1,1 @@
-# jenkins-sonarcube
-1st Project - how to set up a Jenkins CI/CD pipeline using Github, Sonarqube, and Docker on an AWS EC2 instance
+This project is a Flask application containerized using Docker and automated with GitHub Actions (CI/CD)
